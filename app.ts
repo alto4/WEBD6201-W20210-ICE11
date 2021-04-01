@@ -11,7 +11,7 @@ import * as indexRouter from './Routes/index';
 export const app = express();
 
 // DB configuration
-import DBConfig = require('./Config/db');
+import * as DBConfig from './Config/db';
 mongoose.connect(DBConfig.Path, {useNewUrlParser: true, useUnifiedTopology: true});
 
 const db = mongoose.connection;

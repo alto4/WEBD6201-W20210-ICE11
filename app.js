@@ -31,7 +31,7 @@ const morgan_1 = __importDefault(require("morgan"));
 const mongoose_1 = __importDefault(require("mongoose"));
 const indexRouter = __importStar(require("./Routes/index"));
 exports.app = express_1.default();
-const DBConfig = require("./Config/db");
+const DBConfig = __importStar(require("./Config/db"));
 mongoose_1.default.connect(DBConfig.Path, { useNewUrlParser: true, useUnifiedTopology: true });
 const db = mongoose_1.default.connection;
 db.on('error', console.error.bind(console, 'connection error:'));

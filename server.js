@@ -19,13 +19,17 @@ var __importStar = (this && this.__importStar) || function (mod) {
     __setModuleDefault(result, mod);
     return result;
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
-const app = __importStar(require("./app"));
-let debug = require('debug')('week10a:server');
-let http = require('http');
+const AppConfig = __importStar(require("./app"));
+const debug_1 = __importDefault(require("debug"));
+debug_1.default('week10a:server');
+const http_1 = __importDefault(require("http"));
 let port = normalizePort(process.env.PORT || '3000');
-app.app.set('port', port);
-let server = http.createServer(app);
+AppConfig.app.set('port', port);
+let server = http_1.default.createServer(AppConfig.app);
 server.listen(port);
 server.on('error', onError);
 server.on('listening', onListening);
@@ -64,6 +68,6 @@ function onListening() {
     let bind = typeof addr === 'string'
         ? 'pipe ' + addr
         : 'port ' + addr.port;
-    debug('Listening on ' + bind);
+    debug_1.default('Listening on ' + bind);
 }
 //# sourceMappingURL=server.js.map

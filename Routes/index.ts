@@ -1,9 +1,9 @@
 // Express Configuration
-import express = require('express');
+import express from 'express';
 export const router = express.Router();
 
 // Contact Model
-import ContactModel = require("../Models/contact");
+import * as ContactModel from "../Models/contact";
 const Contact = ContactModel.Model; // Contact Alias
 
 
