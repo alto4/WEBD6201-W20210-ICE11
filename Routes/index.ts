@@ -52,7 +52,7 @@ router.get('/login', function(req, res, next)
 /* GET login page - with /login */
 router.post('/login', function(req, res, next) 
 {
-  res.render('index', { title: 'Contact List', page: 'contact-list', displayName: req.body.username});
+  res.redirect('/contact-list');
 });
 
 
@@ -62,18 +62,17 @@ router.get('/register', function(req, res, next)
   res.render('index', { title: 'Register', page: 'register', displayName: ''    });
 });
 
-/* temporary routes - mocking up login / register and contact-list related pages */
+/********************** temporary routes - mocking up login / register and contact-list related pages **********************/
 /* GET register page - with /register */
 router.get('/contact-list', function(req, res, next) 
 {
-    //res.render('index', { title: 'Contact List', page: 'contact-list', displayName: 'temp'  });
-
+    // db.contacts.find()
     Contact.find(function(err, contacts){
       if(err)
       {
         return console.error(err);
       }
-      res.json(contacts);
+      res.render('index', { title: 'Contact List', page: 'contact-list', contacts: contacts, displayName: 'temp'  });
     });
 
 });
@@ -84,6 +83,3 @@ router.get('/logout', function(req, res, next)
   res.render('index', { title: 'Logout', page: 'logout', displayName: ''    });
 });
 
-
-
-//module.exports = router;
