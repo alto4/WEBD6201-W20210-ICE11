@@ -167,7 +167,19 @@ router.post('/add', function(req, res, next)
 /* Process delete/:id page - with /delete/:id */
 router.get('/delete/:id', function(req, res, next) 
 {
-  res.redirect('/contact-list');
+  let id = req.params.id;
+
+  // db.contacts.remove({"_id: id"})
+  Contact.remove({_id: id}, (err) => {
+    if(err)
+    {
+      console.error(err);
+      res.end(err);
+    }
+
+    res.redirect('/contact-list');
+  });
+  
 });
 
 
