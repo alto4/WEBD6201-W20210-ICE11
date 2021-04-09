@@ -6,21 +6,21 @@ import cookieParser from 'cookie-parser';
 import logger from 'morgan';
 import mongoose from 'mongoose';
 
-// Authentication modules
+// modules for authentication
 import session from 'express-session';
 import passport from 'passport';
 import passportLocal from 'passport-local';
 
-// Authentication objects
-let localStrategy = passportLocal.Strategy;
+// authentication objects
+let localStrategy = passportLocal.Strategy; // alias
 import User from '../Models/user';
 
-// Module for auth messaging and error-management
+// module for auth messaging and error management
 import flash from 'connect-flash';
 
 // App configuration
 import indexRouter from '../Routes/index';
-export const app = express();
+const app = express();
 export default app;
 
 // DB configuration
@@ -33,7 +33,6 @@ db.once('open', function () {
   console.log(`Connected to MongoDB at: ${DBConfig.URI}`);
 });
 
-
 // view engine setup
 app.set('views', path.join(__dirname, '../Views/'));
 app.set('view engine', 'ejs');
@@ -43,30 +42,30 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, '../../Client/')));
-app.use(express.static(path.join(__dirname, '../../node_modules')));
+app.use(express.static(path.join(__dirname, '../../node_modules/')));
 
-// Setup express sessions
+// setup express session
 app.use(session({
   secret: DBConfig.Secret,
   saveUninitialized: false,
   resave: false
 }));
 
-// Initialize flash
+// initialize flash
 app.use(flash());
 
-// Initialize passport
+// initialize passport
 app.use(passport.initialize());
 app.use(passport.session());
 
-// Use Auth Strategy
+// implement an Auth Strategy
 passport.use(User.createStrategy());
 
-// Serialize and deserialize user data
+// serialize and deserialize user data
 passport.serializeUser(User.serializeUser());
-passport.deserializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
 
-// Route configuration
+// route configuration
 app.use('/', indexRouter);
 
 // catch 404 and forward to error handler

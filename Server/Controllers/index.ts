@@ -2,39 +2,37 @@ import express, { Request, Response, NextFunction } from 'express';
 
 import passport from 'passport';
 
-// Create a User model instance
+// create the User Model Instance
 import User from '../Models/user';
 
-// Helper function
+// Helper Function
 function UserDisplayName(req: Request): string {
   if (req.user) {
     let user = req.user as UserDocument;
     return user.displayName.toString();
   }
-
   return '';
 }
 
-// Display page functions
+// Display Page Functions
 export function DisplayHomePage(req: Request, res: Response, next: NextFunction): void {
-
-  res.render('index', { title: 'Home', page: 'home', displayName: UserDisplayName });
+  res.render('index', { title: 'Home', page: 'home', displayName: UserDisplayName(req) });
 }
 
 export function DisplayAboutPage(req: Request, res: Response, next: NextFunction): void {
-  res.render('index', { title: 'About Us', page: 'about', displayName: UserDisplayName });
+  res.render('index', { title: 'About Us', page: 'about', displayName: UserDisplayName(req) });
 }
 
 export function DisplayServicesPage(req: Request, res: Response, next: NextFunction): void {
-  res.render('index', { title: 'Our Services', page: 'services', displayName: UserDisplayName });
+  res.render('index', { title: 'Our Services', page: 'services', displayName: UserDisplayName(req) });
 }
 
 export function DisplayProjectsPage(req: Request, res: Response, next: NextFunction): void {
-  res.render('index', { title: 'Our Projects', page: 'projects', displayName: UserDisplayName });
+  res.render('index', { title: 'Our Projects', page: 'projects', displayName: UserDisplayName(req) });
 }
 
 export function DisplayContactPage(req: Request, res: Response, next: NextFunction): void {
-  return res.render('index', { title: 'Contact Us', page: 'contact', displayName: UserDisplayName });
+  res.render('index', { title: 'Contact Us', page: 'contact', displayName: UserDisplayName(req) });
 }
 
 export function DisplayLoginPage(req: Request, res: Response, next: NextFunction): void {
@@ -44,11 +42,11 @@ export function DisplayLoginPage(req: Request, res: Response, next: NextFunction
         title: 'Login',
         page: 'login',
         messages: req.flash('loginMessage'),
-        displayName: UserDisplayName
+        displayName: UserDisplayName(req)
       });
   }
 
-  return res.redirect('./contact-list');
+  return res.redirect('/contact-list');
 }
 
 export function DisplayRegisterPage(req: Request, res: Response, next: NextFunction): void {
@@ -58,14 +56,15 @@ export function DisplayRegisterPage(req: Request, res: Response, next: NextFunct
         title: 'Register',
         page: 'register',
         messages: req.flash('registerMessage'),
-        displayName: UserDisplayName
+        displayName: UserDisplayName(req)
       });
   }
 
-  return res.redirect('./contact-list');
+  return res.redirect('/contact-list');
 }
 
-// Process page functions
+// Process Page Functions
+
 export function ProcessLoginPage(req: Request, res: Response, next: NextFunction): void {
   passport.authenticate('local', (err, user, info) => {
     // are there server errors?
@@ -91,7 +90,6 @@ export function ProcessLoginPage(req: Request, res: Response, next: NextFunction
     });
   })(req, res, next);
 }
-
 
 export function ProcessRegisterPage(req: Request, res: Response, next: NextFunction): void {
   // instantiate a new user object
@@ -120,14 +118,11 @@ export function ProcessRegisterPage(req: Request, res: Response, next: NextFunct
 }
 
 export function ProcessLogoutPage(req: Request, res: Response, next: NextFunction): void {
-
   req.logout();
-  console.log("USER LOGGED OUT");
-
+  console.log("User Logged Out");
   res.redirect('/login');
 }
 
 export function ProcessContactPage(req: Request, res: Response, next: NextFunction): void {
-  res.render('index', { title: 'Home', page: 'home', displayName: UserDisplayName });
+  res.render('index', { title: 'Home', page: 'home', displayName: UserDisplayName(req) });
 }
-

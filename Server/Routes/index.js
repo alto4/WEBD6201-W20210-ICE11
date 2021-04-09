@@ -17,7 +17,7 @@ router.get('/contact', index_1.DisplayContactPage);
 router.get('/login', index_1.DisplayLoginPage);
 router.get('/register', index_1.DisplayRegisterPage);
 router.post('/login', index_1.ProcessLoginPage);
-router.post('/logout', index_1.ProcessLogoutPage);
+router.get('/logout', index_1.ProcessLogoutPage);
 router.post('/register', index_1.ProcessRegisterPage);
 router.get('/contact-list', function (req, res, next) {
     contact_1.default.find(function (err, contacts) {

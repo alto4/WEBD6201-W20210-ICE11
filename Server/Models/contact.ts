@@ -1,5 +1,4 @@
 import mongoose from 'mongoose';
-import { defaultCipherList } from 'node:constants';
 const Schema = mongoose.Schema;
 
 const ContactSchema = new Schema

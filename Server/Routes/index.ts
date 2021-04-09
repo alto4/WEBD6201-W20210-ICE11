@@ -6,8 +6,9 @@ export default router;
 // Contact Model
 import Contact from "../Models/contact";
 
-// Create index controller instance
-import { DisplayAboutPage, DisplayContactPage, DisplayHomePage, DisplayLoginPage, DisplayProjectsPage, DisplayRegisterPage, DisplayServicesPage, ProcessLoginPage, ProcessLogoutPage, ProcessRegisterPage } from '../Controllers/index';
+// Create an Index Controller Instance
+import { DisplayAboutPage, DisplayContactPage, DisplayHomePage, DisplayLoginPage, DisplayProjectsPage, DisplayRegisterPage, DisplayServicesPage, ProcessLoginPage, ProcessLogoutPage, ProcessRegisterPage } from "../Controllers/index";
+
 
 /* GET home page - with / */
 router.get('/', DisplayHomePage);
@@ -33,16 +34,15 @@ router.get('/login', DisplayLoginPage);
 /* GET register page - with /register */
 router.get('/register', DisplayRegisterPage);
 
-/**************** Routes for authentication and registration *********************/
 /* Process login page - with /login */
 router.post('/login', ProcessLoginPage);
 
+
 /* Process logout page - with /logout */
-router.post('/logout', ProcessLogoutPage);
+router.get('/logout', ProcessLogoutPage);
 
-/* Process register page - with /register */
+/* Process login page - with /login */
 router.post('/register', ProcessRegisterPage);
-
 
 
 /********************** temporary routes - contact-list related pages **********************/
@@ -144,5 +144,4 @@ router.get('/delete/:id', function (req, res, next) {
   });
 
 });
-
 

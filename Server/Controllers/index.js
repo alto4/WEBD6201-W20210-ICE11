@@ -14,23 +14,23 @@ function UserDisplayName(req) {
     return '';
 }
 function DisplayHomePage(req, res, next) {
-    res.render('index', { title: 'Home', page: 'home', displayName: UserDisplayName });
+    res.render('index', { title: 'Home', page: 'home', displayName: UserDisplayName(req) });
 }
 exports.DisplayHomePage = DisplayHomePage;
 function DisplayAboutPage(req, res, next) {
-    res.render('index', { title: 'About Us', page: 'about', displayName: UserDisplayName });
+    res.render('index', { title: 'About Us', page: 'about', displayName: UserDisplayName(req) });
 }
 exports.DisplayAboutPage = DisplayAboutPage;
 function DisplayServicesPage(req, res, next) {
-    res.render('index', { title: 'Our Services', page: 'services', displayName: UserDisplayName });
+    res.render('index', { title: 'Our Services', page: 'services', displayName: UserDisplayName(req) });
 }
 exports.DisplayServicesPage = DisplayServicesPage;
 function DisplayProjectsPage(req, res, next) {
-    res.render('index', { title: 'Our Projects', page: 'projects', displayName: UserDisplayName });
+    res.render('index', { title: 'Our Projects', page: 'projects', displayName: UserDisplayName(req) });
 }
 exports.DisplayProjectsPage = DisplayProjectsPage;
 function DisplayContactPage(req, res, next) {
-    return res.render('index', { title: 'Contact Us', page: 'contact', displayName: UserDisplayName });
+    res.render('index', { title: 'Contact Us', page: 'contact', displayName: UserDisplayName(req) });
 }
 exports.DisplayContactPage = DisplayContactPage;
 function DisplayLoginPage(req, res, next) {
@@ -39,10 +39,10 @@ function DisplayLoginPage(req, res, next) {
             title: 'Login',
             page: 'login',
             messages: req.flash('loginMessage'),
-            displayName: UserDisplayName
+            displayName: UserDisplayName(req)
         });
     }
-    return res.redirect('./contact-list');
+    return res.redirect('/contact-list');
 }
 exports.DisplayLoginPage = DisplayLoginPage;
 function DisplayRegisterPage(req, res, next) {
@@ -51,10 +51,10 @@ function DisplayRegisterPage(req, res, next) {
             title: 'Register',
             page: 'register',
             messages: req.flash('registerMessage'),
-            displayName: UserDisplayName
+            displayName: UserDisplayName(req)
         });
     }
-    return res.redirect('./contact-list');
+    return res.redirect('/contact-list');
 }
 exports.DisplayRegisterPage = DisplayRegisterPage;
 function ProcessLoginPage(req, res, next) {
@@ -100,12 +100,12 @@ function ProcessRegisterPage(req, res, next) {
 exports.ProcessRegisterPage = ProcessRegisterPage;
 function ProcessLogoutPage(req, res, next) {
     req.logout();
-    console.log("USER LOGGED OUT");
+    console.log("User Logged Out");
     res.redirect('/login');
 }
 exports.ProcessLogoutPage = ProcessLogoutPage;
 function ProcessContactPage(req, res, next) {
-    res.render('index', { title: 'Home', page: 'home', displayName: UserDisplayName });
+    res.render('index', { title: 'Home', page: 'home', displayName: UserDisplayName(req) });
 }
 exports.ProcessContactPage = ProcessContactPage;
 //# sourceMappingURL=index.js.map
