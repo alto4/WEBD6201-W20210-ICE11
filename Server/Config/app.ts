@@ -13,10 +13,10 @@ import passportLocal from 'passport-local';
 
 // Authentication objects
 let localStrategy = passportLocal.Strategy;
-//import User from 
+import User from '../Models/user';
 
-
-
+// Module for auth messaging and error-management
+import flash from 'connect-flash';
 
 // App configuration
 import indexRouter from '../Routes/index';
@@ -25,12 +25,12 @@ export default app;
 
 // DB configuration
 import * as DBConfig from './db';
-mongoose.connect(DBConfig.Path, { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect(DBConfig.URI, { useNewUrlParser: true, useUnifiedTopology: true });
 
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function () {
-  console.log(`Connected to MongoDB at: ${DBConfig.Path}`);
+  console.log(`Connected to MongoDB at: ${DBConfig.URI}`);
 });
 
 
@@ -45,6 +45,28 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, '../../Client/')));
 app.use(express.static(path.join(__dirname, '../../node_modules')));
 
+// Setup express sessions
+app.use(session({
+  secret: DBConfig.Secret,
+  saveUninitialized: false,
+  resave: false
+}));
+
+// Initialize flash
+app.use(flash());
+
+// Initialize passport
+app.use(passport.initialize());
+app.use(passport.session());
+
+// Use Auth Strategy
+passport.use(User.createStrategy());
+
+// Serialize and deserialize user data
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.serializeUser());
+
+// Route configuration
 app.use('/', indexRouter);
 
 // catch 404 and forward to error handler
