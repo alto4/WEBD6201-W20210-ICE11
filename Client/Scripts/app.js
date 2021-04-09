@@ -47,21 +47,6 @@ var core;
         testEmailAddress();
     }
     function displayContact() {
-        formValidation();
-        $("#sendButton").on("click", (event) => {
-            let subscribeCheckbox = $("#subscribeCheckbox")[0];
-            let fullName = $("#fullName")[0];
-            let contactNumber = $("#contactNumber")[0];
-            let emailAddress = $("#emailAddress")[0];
-            if (subscribeCheckbox.checked) {
-                let contact = new core.Contact(fullName.value, contactNumber.value, emailAddress.value);
-                if (contact.serialize()) {
-                    let key = contact.FullName.substring(0, 1) + Date.now();
-                    localStorage.setItem(key, contact.serialize());
-                }
-            }
-            location.href = '/contact';
-        });
     }
     function displayContactList() {
         $("a.delete").on("click", function (event) {

@@ -56,6 +56,7 @@ namespace core {
 
   function displayContact(): void {
     // form validation
+    /*
     formValidation();
 
     $("#sendButton").on("click", (event) => {
@@ -75,7 +76,7 @@ namespace core {
       }
 
       location.href = '/contact';
-    });
+    });*/
   }
 
   function displayContactList(): void {

@@ -15,7 +15,6 @@ router.get('/', DisplayHomePage);
 /* GET home page - with /home */
 router.get('/home', DisplayHomePage);
 
-
 /* GET about page - with /about */
 router.get('/about', DisplayAboutPage);
 
