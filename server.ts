@@ -4,7 +4,7 @@
  * Module dependencies.
  */
 import createError from 'http-errors';
-import * as AppConfig  from './Server/Config/app';
+import AppConfig from './Server/Config/app';
 import debug from 'debug';
 debug('week10a:server');
 
@@ -16,13 +16,13 @@ import http from 'http';
 
 let port = normalizePort(process.env.PORT || '3000');
 
-AppConfig.app.set('port', port);
+AppConfig.set('port', port);
 
 /**
  * Create HTTP server.
  */
 
-let server = http.createServer(AppConfig.app);
+let server = http.createServer(AppConfig);
 
 /**
  * Listen on provided port, on all network interfaces.
@@ -36,17 +36,15 @@ server.on('listening', onListening);
  * Normalize a port into a number, string, or false.
  */
 
-function normalizePort(val:string): number | string | boolean {
+function normalizePort(val: string): number | string | boolean {
   let port = parseInt(val, 10);
 
-  if (isNaN(port)) 
-  {
+  if (isNaN(port)) {
     // named pipe
     return val;
   }
 
-  if (port >= 0) 
-  {
+  if (port >= 0) {
     // port number
     return port;
   }
@@ -58,10 +56,8 @@ function normalizePort(val:string): number | string | boolean {
  * Event listener for HTTP server "error" event.
  */
 
-function onError(error:createError.HttpError):void 
-{
-  if (error.syscall !== 'listen') 
-  {
+function onError(error: createError.HttpError): void {
+  if (error.syscall !== 'listen') {
     throw error;
   }
 
@@ -70,8 +66,7 @@ function onError(error:createError.HttpError):void
     : 'Port ' + port;
 
   // handle specific listen errors with friendly messages
-  switch (error.code) 
-  {
+  switch (error.code) {
     case 'EACCES':
       console.error(bind + ' requires elevated privileges');
       process.exit(1);
@@ -89,8 +84,7 @@ function onError(error:createError.HttpError):void
  * Event listener for HTTP server "listening" event.
  */
 
-function onListening():void 
-{
+function onListening(): void {
   let addr = server.address();
   let bind = typeof addr === 'string'
     ? 'pipe ' + addr
