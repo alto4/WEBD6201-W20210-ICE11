@@ -66,10 +66,12 @@ passport.use(User.createStrategy());
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
+//import { AuthGuard } from '../Util/index';
+
 // route configuration
 app.use('/', indexRouter);
+// * CAN USE AUTHGUARD HERE TO PROTECT ENTIRE AREA
 app.use('/contact-list', contactListRouter);
-
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
